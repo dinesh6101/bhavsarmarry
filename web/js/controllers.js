@@ -42,13 +42,13 @@ angular.module('app.controllers', [])
     }
 ])
 
-.controller('loginCtrl', ['$scope', '$stateParams', '$location', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams', '$location', '$rootScope','$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $location, $rootScope) {
+    function($scope, $stateParams, $location, $rootScope, $http) {
         $scope.user = { mobile: "", password: "" };
         
-        $http({
+        /*$http({
 	        method : 'POST',
 	        url : "",
 	        headers : {
@@ -88,16 +88,38 @@ angular.module('app.controllers', [])
                     alert('Login was unsuccessful, please verify username and password and try again');
                 }
             });
-        }
+        }*/
 
     }
 ])
 
-.controller('registerCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('registerCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $stateParams, $http) {
 
+        $scope.groom = {};
+
+        $scope.register = function(){
+    $http({
+			method : "POST",
+			url : "http://localhost/mongo/rest/api/v1/dbs/matrimony/groom",
+			data : JSON.stringify($scope.groom),
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		}).then(handlesuccess, errorhandler);
+ 
+        }
+
+    
+        function handlesuccess(){
+            alert('handlesuccess');
+        }
+
+        function errorhandler(){
+            alert('errorhandler');
+        }
 
     }
 ])
