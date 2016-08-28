@@ -1,0 +1,5 @@
+[{ "createdAt": "2016-08-10T14:17:16.497Z", "updatedAt": "2016-08-14T21:46:04.217Z", "email": "dinesh.bhavsar@siemens.com", "firstName": "Dinesh", "gender": "Male", "lastName": "Bhavsar", "userType": "Groom", "username": "123", "ACL": { "*": { "read": true }, "CCYuUi4YjW": { "read": true, "write": true } }, "objectId": "CCYuUi4YjW" }, 
+
+{ "sessionToken": "r:b61657303eeda824ef70fddf6260d7ec", "createdAt": "2016-08-10T13:04:55.932Z", "updatedAt": "2016-08-14T21:46:07.451Z", "email": "dinesh94@gmail.com", "emailVerified": true, "firstName": "Ghana", "gender": "Male", "lastName": "Bhavsar", "userType": "Groom", "username": "dinesh", "ACL": { "*": { "read": true }, "BDsdGdBNzT": { "read": true, "write": true } }, "objectId": "BDsdGdBNzT" }, 
+
+{ "createdAt": "2016-08-14T21:48:11.324Z", "updatedAt": "2016-08-14T21:48:35.352Z", "email": "jayant@gmail.com", "firstName": "Jayant", "gender": "Male", "lastName": "Bhavsar", "userType": "Groom", "username": "jayant", "ACL": { "*": { "read": true }, "ZnPZcxouXf": { "read": true, "write": true } }, "objectId": "ZnPZcxouXf" }]
