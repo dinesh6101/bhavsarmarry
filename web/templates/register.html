@@ -8,35 +8,35 @@
                 </label>
                 <label class="item item-input " id="register-input4">
                     <span class="input-label">Last Name</span>
-                    <input type="text" placeholder="">
+                    <input data-ng-model="groom.lastName" type="text" placeholder="">
                 </label>
                 <label class="item item-input " id="register-input7">
                     <span class="input-label">Mobile</span>
-                    <input type="tel" placeholder="">
+                    <input data-ng-model="groom.mobileNo" type="tel" placeholder="">
                 </label>
                 <label class="item item-input " id="register-input8">
                     <span class="input-label">Email</span>
-                    <input type="email" placeholder="">
+                    <input data-ng-model="groom.email" type="email" placeholder="">
                 </label>
                 <label class="item item-select " id="register-gender">
                 <span class="input-label">Gender</span>
-                <select>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Shemale</option>
+                <select data-ng-model="groom.gender">
+                    <option data-ng-value="Male">Male</option>
+                    <option data-ng-value="Female">Female</option>
+                    <option data-ng-value="Shemale">Shemale</option>
                 </select>
             </label>
                 <label class="item item-input " id="register-input5">
                     <span class="input-label">Password</span>
-                    <input type="text" placeholder="">
+                    <input data-ng-model="groom.password" type="text" placeholder="">
                 </label>
             </ion-list>
             <label class="item item-select " id="register-select30">
                 <span class="input-label">Register as</span>
-                <select>
-                    <option>Groom</option>
-                    <option>Bride</option>
-                    <option>I am not a groom/bride</option>
+                <select data-ng-model="groom.registerAs">
+                    <option ng-value="Groom">Groom</option>
+                    <option ng-value="Bride">Bride</option>
+                    <option ng-value="I am not a groom/bride">I am not a groom/bride</option>
                 </select>
             </label>
             <p id="register-markdown13" style="color:#000000;">

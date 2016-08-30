@@ -98,7 +98,15 @@ angular.module('app.controllers', [])
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $http) {
 
-        $scope.groom = {};
+        $scope.groom = {
+            firstName:"",
+            lastName:"",
+            mobileNo:"",
+            email:"",
+            gender:"",
+            password:"",
+            registerAs:""
+        };
 
         $scope.register = function(){
     $http({
