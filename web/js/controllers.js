@@ -1,21 +1,9 @@
 angular.module('app.controllers', [])
 
-.controller('profilesCtrl', ['$scope', '$stateParams', 'Entry', '$resource', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('profilesCtrl', ['$scope', '$stateParams', '$resource', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, Entry, $resource) {
-	
-		var param = {collection : "GameScore", "score" : 1338};
-		var entries = Entry.query(param, function() {
-		    console.log(entries);
-		  }); //query() returns all the entries
-	
-		 
-        /*var User = Restangular.all('_User');
-        User.getList().then(function(userList) {
-            alert('userList = ' + JSON.stringify(userList));
-            $scope.users = userList;
-        });*/
+    function($scope, $stateParams, $resource) {
 
         $scope.showProfileDetails = function(user) {
             alert('user = ' + JSON.stringify(user));
@@ -42,63 +30,30 @@ angular.module('app.controllers', [])
     }
 ])
 
-.controller('loginCtrl', ['$scope', '$stateParams', '$location', '$rootScope','$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $location, $rootScope, $http) {
+    function($scope, $stateParams) {
         $scope.user = { mobile: "", password: "" };
         
-        /*$http({
-	        method : 'POST',
-	        url : "",
-	        headers : {
-		        'Content-Type' : 'application/x-www-form-urlencoded'
-	        },
-	        data : $.param(data),
-	        withCredentials: true
-	    }).then(function(response) {
-		    $log.debug("Success POST API call -> " + path + " with supplied data = " + JSON.stringify(data));
-		    if (successHandler && response)
-			    return successHandler.call(this, response.data.data);
-		    else
-			    return response;
-	    }, function(error) {
-		    $log.error("Failed POST API call -> " + path + " with supplied data = " + JSON.stringify(data) + ", error code: " + error.data.httpStatusCode);
-		    if (errorHandler)
-			    return symphonyUtilService.handleRestError(error.data, error.data.httpStatusCode, errorHandler);
-		    else {
-			    throw {
-			        success : false,
-			        error : error
-			    };
-		    }
-	    });
-        
         $scope.login = function() {
-            dinesh.login($scope.user.mobile, $scope.user.password, function(userDetails, error) {
-                if (userDetails.id) {
-                    $('#side-menu21').show();
-                    $('.bar-light').show();
-
-                    $rootScope.sessionUser = Parse.User.current();
-
-                    window.location = '#/tabs/profiles';
-                    //$location.url('/tabs/profiles'); // --> This is not working properly
-                } else {
-                    alert('Login was unsuccessful, please verify username and password and try again');
-                }
-            });
-        }*/
-
+            if (true || userDetails.id) {
+                $('#side-menu21').show();
+                $('.bar-light').show();
+                window.location = '#/tabs/profiles';
+                //$location.url('/tabs/profiles'); // --> This is not working properly
+            } else {
+                alert('Login was unsuccessful, please verify username and password and try again');
+            }
+        }
     }
 ])
 
-.controller('registerCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('registerCtrl', ['$scope', '$stateParams', '$rest', '$msg',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $http) {
-
-        $scope.groom = {
+    function($scope, $stateParams, $rest, $msg) {
+        $scope.user = {
             firstName:"",
             lastName:"",
             mobileNo:"",
@@ -109,26 +64,10 @@ angular.module('app.controllers', [])
         };
 
         $scope.register = function(){
-    $http({
-			method : "POST",
-			url : "http://localhost/mongo/rest/api/v1/dbs/matrimony/groom",
-			data : JSON.stringify($scope.groom),
-			headers : {
-				'Content-Type' : 'application/json'
-			}
-		}).then(handlesuccess, errorhandler);
- 
+        	$rest.post('matrimony/user', $scope.user).then(function(response){
+        		$msg.info("Success", "You need to verify registration by entering code sent to you on mobile & email");
+        	});
         }
-
-    
-        function handlesuccess(){
-            alert('handlesuccess');
-        }
-
-        function errorhandler(){
-            alert('errorhandler');
-        }
-
     }
 ])
 
