@@ -1,5 +1,6 @@
 <ion-view title="Edit Profile" id="page13">
     <ion-content padding="true" class="has-header">
+        {{userEdit | json}}
         <form id="editProfile-form10" class="list ">
             <p id="editProfile-markdown16" style="color:#2A3269;font-size:11px;">Profile photo &amp; basic details are mandatory to dispay your profile in search result. To experience a better results, please fill all the infomration below.</p>
             <ion-checkbox>Auto save</ion-checkbox>
@@ -61,13 +62,13 @@
             <label class="item item-select " id="editProfile-select4">
                 <span class="input-label">Weight</span>
                 <select data-ng-model="userEdit.weight">
-                    <option data-ng-repeat="option in options.weightOption" data-ng-value="{{option.name}}">{{option.name}}</option>
+                    <option data-ng-repeat="option in master.weight" data-ng-value="{{option.name}}">{{option.name}}</option>
                 </select>
             </label>
             <label class="item item-select " id="editProfile-select29">
                 <span class="input-label">Blood Group</span>
-                <select data-ng-model="userEdit.bloodGroup">
-                    <option data-ng-repeat="option in options.bloodGroupOption" data-ng-value="{{option.name}}">{{option.name}}</option>
+                <select data-ng-model="userEdit.bloodgroup">
+                    <option data-ng-repeat="option in master.bloodgroup" data-ng-value="{{option}}">{{option.name}}</option>
                 </select>
             </label>
             <label class="item item-select " id="editProfile-select5">

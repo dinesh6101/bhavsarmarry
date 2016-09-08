@@ -1,5 +1,21 @@
 angular.module('app.controllers', [])
 
+.controller('rootController', ['$rootScope', '$stateParams', '$rest', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    // You can include any angular dependencies as parameters for this function
+    // TIP: Access Route Parameters for your page via $stateParams.parameterName
+    function($rootScope, $stateParams, $rest) {
+    
+        $rootScope.master = {};
+        $rest.get('matrimony/bloodgroup/view', function(response){
+            $rootScope.master.bloodgroup = response;
+        });
+
+        $rest.get('matrimony/weight/view', function(response){
+            $rootScope.master.weight = response;
+        });
+    }
+])
+
 .controller('profilesCtrl', ['$scope', '$stateParams', '$resource', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -53,18 +69,8 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $rest, $msg) {
-        $scope.user = {
-            firstName:"",
-            lastName:"",
-            mobileNo:"",
-            email:"",
-            gender:"",
-            password:"",
-            registerAs:""
-            
-        };
+        $scope.user = { };
         
-
         $scope.register = function(){
         	$rest.post('matrimony/user', $scope.user).then(function(response){
         		$msg.info("Success", "You need to verify registration by entering code sent to you on mobile & email");
@@ -142,16 +148,6 @@ angular.module('app.controllers', [])
         {id: '8', name: 'Between 80 to 85 kg'},
         {id: '9', name: 'Between 85 to 90 kg'},
         {id: '10', name: 'Above 90 kg..'}
-           ],
-           bloodGroupOption:[
-        {id: '1', name: 'A+'},
-        {id: '2', name: 'A-'},
-        {id: '3', name: 'B+'},
-        {id: '4', name: 'B-'},
-        {id: '5', name: 'O+'},
-        {id: '6', name: 'O-'},
-        {id: '7', name: 'AB+'},
-        {id: '8', name: 'AB-'},
            ],
             maritalStatusOption:[
         {id: '1', name: 'Single'},
@@ -362,6 +358,7 @@ angular.module('app.controllers', [])
 
           
        $scope.userEdit={
+           //no need to define bcz of two way binding....
              primaryPhoneNo:"",
              secondaryPhoneNo:"",
              primaryEmail:"",
@@ -412,12 +409,8 @@ angular.module('app.controllers', [])
                 $scope.userEdit.cast = selectedCast.name;
            };
 
-         $scope.fun = function(a){
-               alert(a);
-         };
-
-         $scope.updateUser = function(){
-        	$rest.post('matrimony/user?id', $scope.userEdit).then(function(response){
+            $scope.updateUser = function(){
+        	$rest.patch('matrimony/user/57d1807ed64f7b0cc062addd', $scope.userEdit).then(function(response){
         		$msg.info("Success", "You need to verify registration by entering code sent to you on mobile & email");
         	});
         }

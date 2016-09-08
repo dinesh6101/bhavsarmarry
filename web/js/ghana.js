@@ -77,6 +77,30 @@ $ghana.factory('$rest', function($http, $log) {
 		    });
 	    },
 	    
+		patch : function(path, data, successHandler, errorHandler) {
+		    if (data == undefined) {
+			    data = {};
+		    }
+		    path = servicePath + path;
+		    return $http({
+		        method : 'PATCH',
+		        url : path,
+		        data : data//encodeURIComponent(JSON.stringify(data))
+		    }).then(function(response) {
+			    $log.debug("Success PUT API call -> " + path + " with supplied data = " + JSON.stringify(data));
+			    if (successHandler && response)
+				    return successHandler.call(this, response.data.data);
+			    else
+				    return response;
+		    }, function(error) {
+		    	$log.error("Failed GET API call -> " + path + ", error code: " + JSON.stringify(error));
+			    throw {
+			        success : false,
+			        error : error
+			    };
+		    });
+	    },
+
 	    del : function(path, successHandler, errorHandler) {
 		    path = servicePath + path;
 		    return $http({
