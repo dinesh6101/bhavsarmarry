@@ -9,19 +9,9 @@ var appServices = angular.module('app.services', [])
 }]);
 
 
-appServices.factory('Entry', function($resource) {
-	return $resource('http://localhost/mongo/rest/dbs/test/:collection/:id', 
-			{collection : "@collection", id: "@id"}, {
-	  'get':    {method:'GET', isArray:true},
-	  'save':   {method:'POST'},
-	  'update': {method:'PUT' },
-	  'query':  {method:'GET', isArray:true},
-	  'remove': {method:'DELETE'},
-	  'delete': {method:'DELETE'} 
-	}, 
-    {
-        stripTrailingSlashes: false
-    });
+appServices.factory('profiles', function($resource) {
+
+
 });
 
 /*appServices.

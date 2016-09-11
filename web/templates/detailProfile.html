@@ -1,4 +1,4 @@
-<ion-view title="Detail Profile" id="page12">
+<ion-view title="Detail Profile" id="page12" data-ng-init="init()">
     <ion-content padding="true" class="has-header">
         <form id="detailProfile-form8" class="list ">
             <ion-toggle toggle-class="toggle-positive" id="detailProfile-toggle5">Shortlist</ion-toggle>
@@ -50,7 +50,8 @@
                                     &nbsp;:&nbsp;
                                 </td>
                                 <td>
-                                    09-Apr-87 (29)
+
+                                    {{user.gender}} 09-Apr-87 (29)
                                 </td>
                             </tr>
                             <tr>

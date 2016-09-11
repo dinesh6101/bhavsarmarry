@@ -2,142 +2,143 @@ angular.module('app.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
-    
-  
+    // Ionic uses AngularUI Router which uses the concept of states
+    // Learn more here: https://github.com/angular-ui/ui-router
+    // Set up the various states which the app can be in.
+    // Each state's controller can be found in controllers.js
+    $stateProvider
 
-      .state('tabMenu.profiles', {
-    url: '/profiles',
-    views: {
-      'tab1': {
-        templateUrl: 'templates/profiles.html',
-        controller: 'profilesCtrl'
-      }
-    }
-  })
 
-  .state('tabMenu.bride', {
-    url: '/bride',
-    views: {
-      'tab2': {
-        templateUrl: 'templates/bride.html',
-        controller: 'brideCtrl'
-      }
-    }
-  })
 
-  .state('tabMenu.shortlisted', {
-    url: '/shortlisted',
-    views: {
-      'tab3': {
-        templateUrl: 'templates/shortlisted.html',
-        controller: 'shortlistedCtrl'
-      }
-    }
-  })
+        .state('tabMenu.profiles', {
+        url: '/profiles',
+        views: {
+            'tab1': {
+                templateUrl: 'templates/profiles.html',
+                controller: 'profilesCtrl'
+            }
+        }
+    })
 
-  .state('tabMenu', {
-    url: '/tabs',
-    templateUrl: 'templates/tabMenu.html',
-    abstract:true
-  })
+    .state('tabMenu.bride', {
+        url: '/bride',
+        views: {
+            'tab2': {
+                templateUrl: 'templates/bride.html',
+                controller: 'brideCtrl'
+            }
+        }
+    })
 
-  .state('login', {
-    url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
-  })
+    .state('tabMenu.shortlisted', {
+        url: '/shortlisted',
+        views: {
+            'tab3': {
+                templateUrl: 'templates/shortlisted.html',
+                controller: 'shortlistedCtrl'
+            }
+        }
+    })
 
-  .state('register', {
-    url: '/register',
-    templateUrl: 'templates/register.html',
-    controller: 'registerCtrl'
-  })
+    .state('tabMenu', {
+        url: '/tabs',
+        templateUrl: 'templates/tabMenu.html',
+        abstract: true
+    })
 
-  .state('forgotPassword', {
-    url: '/forgotpassword',
-    templateUrl: 'templates/forgotPassword.html',
-    controller: 'forgotPasswordCtrl'
-  })
+    .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+    })
 
-  .state('tabMenu.viewedMyProfile', {
-    url: '/viewedmyprofile',
-    views: {
-      'tab4': {
-        templateUrl: 'templates/viewedMyProfile.html',
-        controller: 'viewedMyProfileCtrl'
-      }
-    }
-  })
+    .state('register', {
+        url: '/register',
+        templateUrl: 'templates/register.html',
+        controller: 'registerCtrl'
+    })
 
-  .state('tabMenu.shortlistedMe', {
-    url: '/shortlistedme',
-    views: {
-      'tab5': {
-        templateUrl: 'templates/shortlistedMe.html',
-        controller: 'shortlistedMeCtrl'
-      }
-    }
-  })
+    .state('forgotPassword', {
+        url: '/forgotpassword',
+        templateUrl: 'templates/forgotPassword.html',
+        controller: 'forgotPasswordCtrl'
+    })
 
-  .state('mailBox', {
-    url: '/emails',
-    templateUrl: 'templates/mailBox.html',
-    controller: 'mailBoxCtrl'
-  })
+    .state('tabMenu.viewedMyProfile', {
+        url: '/viewedmyprofile',
+        views: {
+            'tab4': {
+                templateUrl: 'templates/viewedMyProfile.html',
+                controller: 'viewedMyProfileCtrl'
+            }
+        }
+    })
 
-  .state('tabMenu.detailProfile', {
-    url: '/detailprofile',
-    views: {
-      'tab1': {
-        templateUrl: 'templates/detailProfile.html',
-        controller: 'detailProfileCtrl'
-      }
-    }
-  })
+    .state('tabMenu.shortlistedMe', {
+        url: '/shortlistedme',
+        views: {
+            'tab5': {
+                templateUrl: 'templates/shortlistedMe.html',
+                controller: 'shortlistedMeCtrl'
+            }
+        }
+    })
 
-  .state('editProfile', {
-    url: '/editprofile',
-    templateUrl: 'templates/editProfile.html',
-    controller: 'editProfileCtrl'
-  })
+    .state('mailBox', {
+        url: '/emails',
+        templateUrl: 'templates/mailBox.html',
+        controller: 'mailBoxCtrl'
+    })
 
-  .state('uploadPhotos', {
-    url: '/uploadphotos',
-    templateUrl: 'templates/uploadPhotos.html',
-    controller: 'uploadPhotosCtrl'
-  })
+    .state('tabMenu.detailProfile', {
+        url: '/detailprofile',
+        cache: false,
+        views: {
+            'tab1': {
+                templateUrl: 'templates/detailProfile.html',
+                controller: 'detailProfileCtrl'
+            }
+        }
+    })
 
-  .state('settings', {
-    url: '/settings',
-    templateUrl: 'templates/settings.html',
-    controller: 'settingsCtrl'
-  })
+    .state('editProfile', {
+        url: '/editprofile',
+        templateUrl: 'templates/editProfile.html',
+        controller: 'editProfileCtrl'
+    })
 
-  .state('enableDisableProfile', {
-    url: '/activedeactiveprofile',
-    templateUrl: 'templates/enableDisableProfile.html',
-    controller: 'enableDisableProfileCtrl'
-  })
+    .state('uploadPhotos', {
+        url: '/uploadphotos',
+        templateUrl: 'templates/uploadPhotos.html',
+        controller: 'uploadPhotosCtrl'
+    })
 
-  .state('feedbackContact', {
-    url: '/feedbackcontact',
-    templateUrl: 'templates/feedbackContact.html',
-    controller: 'feedbackContactCtrl'
-  })
+    .state('settings', {
+        url: '/settings',
+        templateUrl: 'templates/settings.html',
+        controller: 'settingsCtrl'
+    })
 
-  .state('verifyEmailMobile', {
-    url: '/verifymobile',
-    templateUrl: 'templates/verifyEmailMobile.html',
-    controller: 'verifyEmailMobileCtrl'
-  })
+    .state('enableDisableProfile', {
+        url: '/activedeactiveprofile',
+        templateUrl: 'templates/enableDisableProfile.html',
+        controller: 'enableDisableProfileCtrl'
+    })
 
-$urlRouterProvider.otherwise('/login')
+    .state('feedbackContact', {
+        url: '/feedbackcontact',
+        templateUrl: 'templates/feedbackContact.html',
+        controller: 'feedbackContactCtrl'
+    })
 
-  
+    .state('verifyEmailMobile', {
+        url: '/verifymobile',
+        templateUrl: 'templates/verifyEmailMobile.html',
+        controller: 'verifyEmailMobileCtrl'
+    })
+
+    $urlRouterProvider.otherwise('/login')
+
+
 
 });

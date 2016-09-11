@@ -1,6 +1,8 @@
-<ion-view title="Edit Profile" id="page13">
+<ion-view title="Edit Profile" id="page13" data-ng-init="init();">
     <ion-content padding="true" class="has-header">
+
         {{userEdit | json}}
+
         <form id="editProfile-form10" class="list ">
             <p id="editProfile-markdown16" style="color:#2A3269;font-size:11px;">Profile photo &amp; basic details are mandatory to dispay your profile in search result. To experience a better results, please fill all the infomration below.</p>
             <ion-checkbox>Auto save</ion-checkbox>
@@ -55,91 +57,81 @@
             </label>
             <label class="item item-select " id="editProfile-select3">
                 <span class="input-label">Height</span>
-                <select data-ng-model="userEdit.height">
-                    <option data-ng-repeat="option in options.heightOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.height" data-ng-options="option.name for option in master.height track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select4">
                 <span class="input-label">Weight</span>
-                <select data-ng-model="userEdit.weight">
-                    <option data-ng-repeat="option in master.weight" data-ng-value="{{option.name}}">{{option.name}}</option>
+                <select data-ng-model="userEdit.weight" data-ng-options="option.name for option in master.weight track by option.id">
                 </select>
             </label>
             <label class="item item-select " id="editProfile-select29">
                 <span class="input-label">Blood Group</span>
-                <select data-ng-model="userEdit.bloodgroup">
-                    <option data-ng-repeat="option in master.bloodgroup" data-ng-value="{{option}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.bloodgroup" data-ng-options="option.name for option in master.bloodgroup track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select5">
                 <span class="input-label">Marital Status</span>
-                <select data-ng-model="userEdit.maritalStatus">
-                    <option data-ng-repeat="option in options.maritalStatusOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.maritalStatus" data-ng-options="option.name for option in master.maritalStatus track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select6">
                 <span class="input-label">Mother Tongue</span>
-                <select data-ng-model="userEdit.motherTongue">
-                   <option data-ng-repeat="option in options.motherTongueOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.motherTongue" data-ng-options="option.name for option in master.motherTongue track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select7">
                 <span class="input-label">Eating Habits</span>
-                <select data-ng-model="userEdit.eatingHabit">
-                    <option data-ng-repeat="option in options.eatingHabitOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.eatingHabit" data-ng-options="option.name for option in master.eatingHabit track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select8">
                 <span class="input-label">Drinking Habits</span>
-                <select data-ng-model="userEdit.drinkingHabit">
-                    <option data-ng-repeat="option in options.drinkingHabitOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.drinkingHabit" data-ng-options="option.name for option in master.habits track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select9">
                 <span class="input-label">Smoking Habits</span>
-                <select data-ng-model="userEdit.smokingHabit">
-                    <option data-ng-repeat="option in options.smokingHabitOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.smokingHabit" data-ng-options="option.name for option in master.habits track by option.id"> </select>
             </label>
             <div class="spacer" style="width: 300px; height: 25px;"></div>
             <ion-item class="item-icon-left  " id="editProfile-list-item28">
                 <i class="icon ion-android-document"></i>Religion/Cast</ion-item>
+
+
+
             <label class="item item-select " id="editProfile-select12">
+                <span class="input-label">Religion</span>
+                <select id="strReligion" ng-options="option.name for option in master.religion track by option.id"   ng-model="selectedreligion" data-ng-change="GetSelectedReligion(selectedreligion)"></select>
+            </label>
+            <label class="item item-select " id="editProfile-select12">
+                <span class="input-label">Cast</span>
+                <select id="strCast" ng-options="cast.name for cast in selectedreligion.castOption track by cast.id" ng-model="userEdit.cast"></select>
+            </label>
+
+
+            <!-- <label class="item item-select " id="editProfile-select12">
                 <span class="input-label">Religion</span>
                 <select id="strReligion" ng-options="religion as religion.name for religion in options.religionOption track by religion.id" data-ng-change="GetSelectedReligion(selectedReligion)" ng-model="selectedReligion"></select>
             </label>
             <label class="item item-select " id="editProfile-select12">
                 <span class="input-label">Cast</span>
                 <select id="strCast" ng-options="cast as cast.name for cast in selectedReligion.castOption track by cast.id" ng-change="GetSelectedCast(selectedcast)" ng-model="selectedcast"></select>
-            </label>
-            
+            </label>-->
+
             <ion-toggle data-ng-model="userEdit.castNoBar" toggle-class="toggle-positive" id="editProfile-toggle8">Cast no bar to marry</ion-toggle>
             <label class="item item-select " id="editProfile-select14">
                 <span class="input-label">Nakshatra</span>
-                <select data-ng-model="userEdit.nakshtra">
-                     <option data-ng-repeat="option in options.nakshtraOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.nakshtra" data-ng-options="option.name for option in master.nakshtra track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select15">
                 <span class="input-label">Rashi</span>
-                 <select data-ng-model="userEdit.rashi">
-                    <option data-ng-repeat="option in options.rashiOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                 <select data-ng-model="userEdit.rashi" data-ng-options="option.name for option in master.rashi track by option.id" > </select>
             </label>
             <label class="item item-select " id="editProfile-select13">
                 <span class="input-label">Nadi</span>
-                <select data-ng-model="userEdit.nadi">
-                     <option data-ng-repeat="option in options.nadiOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.nadi" data-ng-options="option.name for option in master.nadi track by option.id" > </select>
             </label>
             <div class="spacer" style="width: 300px; height: 27px;"></div>
             <ion-item class="item-icon-left  " id="editProfile-list-item29">
                 <i class="icon ion-bookmark"></i>Education/Occupation</ion-item>
             <label class="item item-select " id="editProfile-select16">
                 <span class="input-label">Higher Education</span>
-                <select data-ng-model="userEdit.higherEdu">
-                   <option data-ng-repeat="option in options.higherEduOption" data-ng-value="{{option.name}}">{{option.name}}</option> 
-                </select>
+                <select data-ng-model="userEdit.higherEdu" data-ng-options="option.name for option in master.education track by option.id">  </select>
             </label>
             <label class="item item-input " id="editProfile-input21">
                 <span class="input-label">Collage</span>
@@ -147,21 +139,15 @@
             </label>
             <label class="item item-select " id="editProfile-select19">
                 <span class="input-label">Employed In</span>
-                <select data-ng-model="userEdit.employedIn">
-                  <option data-ng-repeat="option in options.employedInOption" data-ng-value="{{option.name}}">{{option.name}}</option> 
-                </select>
+                <select data-ng-model="userEdit.employedIn"  data-ng-options="option.name for option in master.employedIn track by option.id" > </select>
             </label>
             <label class="item item-select " id="editProfile-select21">
                 <span class="input-label">Work Location</span>
-                <select data-ng-model="userEdit.workLocation">
-                  <option data-ng-repeat="option in options.workLocationOption" data-ng-value="{{option.name}}">{{option.name}}</option>  
-                </select>
+                <select data-ng-model="userEdit.workLocation" data-ng-options="option.name for option in master.locations track by option.id"> </select>
             </label>
             <label class="item item-select " id="editProfile-select18">
                 <span class="input-label">Occupation</span>
-                <select data-ng-model="userEdit.occupation">
-                    <option data-ng-repeat="option in options.occupationOption" data-ng-value="{{option.name}}">{{option.name}}</option> 
-                </select>
+                <select data-ng-model="userEdit.occupation" data-ng-options="option.name for option in master.occupation track by option.id"> </select>
             </label>
             <label class="item item-input " id="editProfile-input22">
                 <span class="input-label">Occupation Details</span>
@@ -169,9 +155,7 @@
             </label>
             <label class="item item-select " id="editProfile-select20">
                 <span class="input-label">Income</span>
-                <select data-ng-model="userEdit.income">
-                    <option data-ng-repeat="option in options.incomeOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.income" data-ng-options="option.name for option in master.income track by option.id"> </select>
             </label>
             <label class="item item-input " id="editProfile-input23">
                 <span class="input-label">Income Amount</span>
@@ -182,16 +166,11 @@
                 <i class="icon ion-android-home"></i>Family Details</ion-item>
             <label class="item item-select " id="editProfile-select23">
                 <span class="input-label">Family Type</span>
-               <select data-ng-model="userEdit.familyType">
-                    <option data-ng-repeat="option in options.familyTypeOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.familyType" data-ng-options="option.name for option in master.familyType track by option.id">  </select>
             </label>
             <label class="item item-select " id="editProfile-select17">
                 <span class="input-label">Family Status</span>
-                
-                <select data-ng-model="userEdit.familyStatus">
-                    <option data-ng-repeat="option in options.familyStatusOption" data-ng-value="{{option.name}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.familyStatus" data-ng-options="option.name for option in master.familyStatus track by option.id">  </select>
             </label>
             <label class="item item-input " id="editProfile-input24">
                 <span class="input-label">Father's Occupation/Staus</span>
@@ -203,27 +182,19 @@
             </label>
             <label class="item item-select " id="editProfile-select27">
                 <span class="input-label">Number Of Brothers</span>
-                <select data-ng-model="userEdit.noOfBrother" >
-                    <option data-ng-repeat="option in options.numbers" data-ng-value="{{option.id}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.noOfBrother" data-ng-options="option.name for option in master.numbers track by option.id">  </select>
            </label>
-            <label data-ng-init="userEdit.noOfBrother=1" data-ng-show="userEdit.noOfBrother-1" class="item item-select " id="editProfile-select26">
+            <label data-ng-init="userEdit.noOfBrother.id=1" data-ng-show="userEdit.noOfBrother.id-1" class="item item-select " id="editProfile-select26">
                 <span class="input-label">Number Of Brother's Married</span>
-                 <select data-ng-model="userEdit.noOfBrotherMarried" >
-                    <option data-ng-repeat="option in options.numbers | limitTo:userEdit.noOfBrother" data-ng-value="{{option.id}}">{{option.name}}</option>
-                </select>
+                 <select data-ng-model="userEdit.noOfBrotherMarried"  data-ng-options="option.name for option in master.numbers track by option.id  ">  </select>
             </label>
             <label class="item item-select " id="editProfile-select25">
                 <span class="input-label">Number Of Sisters</span>
-                <select data-ng-model="userEdit.noOfSister">
-                    <option data-ng-repeat="option in options.numbers" data-ng-value="{{option.id}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.noOfSister" data-ng-options="option.name for option in master.numbers track by option.id"> </select>
             </label>
-            <label data-ng-init="userEdit.noOfSister=1" data-ng-show="userEdit.noOfSister-1" class="item item-select " id="editProfile-select22">
+            <label data-ng-init="userEdit.noOfSister.id=1" data-ng-show="userEdit.noOfSister.id-1" class="item item-select " id="editProfile-select22">
                 <span class="input-label">Number Of Sister's Married</span>
-                <select data-ng-model="userEdit.noOfSisterMarried">
-                    <option data-ng-repeat="option in options.numbers | limitTo:userEdit.noOfSister" data-ng-value="{{option.id}}">{{option.name}}</option>
-                </select>
+                <select data-ng-model="userEdit.noOfSisterMarried" data-ng-options="option.name for option in master.numbers track by option.id" >  </select>
             </label>
             <label class="item item-input " id="editProfile-textarea3">
                 <span class="input-label">More About My Family</span>
