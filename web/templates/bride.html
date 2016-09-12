@@ -7,16 +7,16 @@
         </label>
             <div data-ng-repeat="user in userList">
                 <div class="spacer" style="width: 300px; height: 5px;"></div>
-                <ion-item class="item-thumbnail-left  " id="profiles-list-item3" ui-sref="tabMenu.detailProfile" data-ng-click="showProfileDetails(user)">
+                <ion-item class="item-thumbnail-left  " id="profiles-list-item3" data-ng-click="showProfileDetails(user, 'bride')">
                     <img src="img/Mawra.jpg">
                     <h2>{{user.firstName}} {{bridusere.lastName}}</h2>
                     <p style="white-space:normal;">{{user.mobileNo}}</p>
                     <p style="white-space:normal;">{{user.email}}</p>
                 </ion-item>
-                <ion-toggle toggle-class="toggle-positive" id="profiles-toggle4">Shortlist</ion-toggle>
+                <ion-toggle toggle-class="toggle-positive" id="profiles-toggle4" data-ng-click="shortListProfile(user)">Shortlist</ion-toggle>
                 <div class="spacer" style="width: 300px; height: 5px;"></div>
                 <div data-ng-repeat="user in users">
-                    <ion-item class="item-thumbnail-left" data-ng-click="showProfileDetails(user)">
+                    <ion-item class="item-thumbnail-left" data-ng-click="showProfileDetails(user, 'bride')">
                         <img src="img/Mawra.jpg">
                         <h2>{{bride.firstName}} {{bride.lastName}}</h2>
                         <p style="white-space:normal;">29 Yrs, 5 Ft 6 In, Bhavsar, <br> Malegaon. B. E. Computer, <br> Software Eng. In Pune.</p>

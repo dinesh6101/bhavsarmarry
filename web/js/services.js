@@ -14,6 +14,21 @@ appServices.factory('profiles', function($resource) {
 
 });
 
+appServices.factory('restService', function($rest, $msg, $localStorage) {
+
+	var restService = {
+			updateUser : function(user){
+				var url = 'matrimony/user/' + user._id;
+				return $rest.patch(url, user).then(function(response) {
+					$localStorage.user = angular.toJson(user);
+	            });
+			}
+	};
+	
+	return restService;
+
+});
+
 /*appServices.
 factory('User', function($q) {
 

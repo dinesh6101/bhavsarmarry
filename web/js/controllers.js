@@ -1,9 +1,9 @@
 angular.module('app.controllers', ['ngStorage'])
 
-.controller('rootController', ['$rootScope', '$stateParams', '$rest', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('rootController', ['$rootScope', '$scope', '$stateParams', '$rest', '$localStorage', 'restService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($rootScope, $stateParams, $rest, $localStorage) {
+    function($rootScope, $scope, $stateParams, $rest, $localStorage, restService) {
 
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             //alert(' toState ' + JSON.stringify(toState) + ' fromState = ' + JSON.stringify(fromState));
@@ -97,6 +97,44 @@ angular.module('app.controllers', ['ngStorage'])
         $rest.get('matrimony/religion/view', function(response) {
             $rootScope.master.religion = response;
         });
+
+        $scope.shortListProfile = function(user) {
+            var logedInUser = JSON.parse($localStorage.user);
+            var shortlistedUser = user;
+
+            var currentId = logedInUser._id;
+            var showrListedId = user._id;
+
+            if (logedInUser.shortlisted == undefined)
+                logedInUser.shortlisted = new Array();
+
+            if ($scope.isAlreadyShortlisted(logedInUser.shortlisted, showrListedId)) {
+                logedInUser.shortlisted.splice(showrListedId, 1);
+            } else {
+                logedInUser.shortlisted.push(showrListedId);
+            }
+            restService.updateUser(logedInUser);
+        }
+
+        $scope.classForShortlisted = function(user) {
+        	var logedInUser = JSON.parse($localStorage.user);
+            if ($scope.isAlreadyShortlisted(logedInUser.shortlisted, user._id))
+                return true;
+            else
+                return false;
+        }
+
+        $scope.isAlreadyShortlisted = function(array, value) {
+            return (array.indexOf(value) > -1);
+        }
+
+        $scope.showProfileDetails = function(user, decision) {
+            if (decision == 'groom') {
+                window.location = '#/tabs/tab1/detailprofile?id=' + user._id;
+            } else if (decision == 'bride') {
+                window.location = '#/tabs/tab2/detailprofile?id=' + user._id;
+            }
+        };
     }
 ])
 
@@ -104,10 +142,7 @@ angular.module('app.controllers', ['ngStorage'])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $resource, $rest, $msg) {
-        //alert('profilesCtrl');
-
         $scope.init = function() {
-
 
             var condition = {
                 "condition": [{
@@ -125,14 +160,10 @@ angular.module('app.controllers', ['ngStorage'])
 
             $rest.post('matrimony/user/search', condition).then(function(response) {
                 $scope.userList = response.data;
-                // alert(JSON.stringify($scope.userList));
             });
         }
 
-        $scope.showProfileDetails = function(user) {
-            //alert('hhhh user = ' + JSON.stringify(user));
-            window.location = '#/tabs/detailprofile?id=' + user._id;
-        };
+
     }
 ])
 
@@ -140,7 +171,6 @@ angular.module('app.controllers', ['ngStorage'])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $resource, $rest, $msg) {
-        //alert('profilesCtrl');
         $scope.init = function() {
             var condition = {
                 "condition": [{
@@ -155,13 +185,9 @@ angular.module('app.controllers', ['ngStorage'])
             };
             $rest.post('matrimony/user/search', condition).then(function(response) {
                 $scope.userList = response.data;
-                //alert(JSON.stringify($scope.userList));
             });
         }
-        $scope.showProfileDetails = function(user) {
-            //alert('hhhh user = ' + JSON.stringify(user));
-            window.location = '#/tabs/detailprofile?id=' + user._id;
-        };
+
     }
 ])
 
@@ -185,28 +211,26 @@ angular.module('app.controllers', ['ngStorage'])
         $scope.login = function() {
             var condition = {
                 "condition": [{
-                        "isOr": false,
-                        "searchpath": "mobileNo",
-                        "values": [
-                            $scope.user.mobileNo
-                        ]
-                    },
-                    {
-                        "isOr": false,
-                        "searchpath": "password",
-                        "values": [
-                            $scope.user.password
-                        ]
-                    }
-                ],
+                    "isOr": false,
+                    "searchpath": "mobileNo",
+                    "values": [
+                        $scope.user.mobileNo
+                    ]
+                }, {
+                    "isOr": false,
+                    "searchpath": "password",
+                    "values": [
+                        $scope.user.password
+                    ]
+                }],
                 "sortAscending": true,
                 "sortOn": "primaryPhoneNo"
             };
+
             $rest.post('matrimony/user/search', condition).then(function(response) {
                 $msg.info("Success", "You have logged in");
                 var user = response.data[0];
                 $localStorage.user = angular.toJson(user);
-                //alert(JSON.stringify($rootScope.user));
                 if (user._id) {
                     $('#side-menu21').show();
                     if (user.gender != 'Male') {
@@ -229,10 +253,7 @@ angular.module('app.controllers', ['ngStorage'])
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $rest, $msg, $localStorage) {
         $scope.user = { updateOn: "" };
-
-
         $scope.register = function() {
-            $scope.user.updateOn = new Date();
             $rest.post('matrimony/user', $scope.user).then(function(response) {
                 $msg.info("Success", "You need to verify registration by entering code sent to you on mobile & email");
                 window.location = '#/login';
@@ -297,17 +318,16 @@ angular.module('app.controllers', ['ngStorage'])
             var url = 'matrimony/user/' + myParam;
             $rest.get(url, function(response) {
                 $scope.user = response;
-                alert(JSON.stringify($scope.user));
             });
 
         }
     }
 ])
 
-.controller('editProfileCtrl', ['$rootScope', '$scope', '$stateParams', '$rest', '$msg', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('editProfileCtrl', ['$rootScope', '$scope', '$stateParams', '$rest', '$msg', '$localStorage', 'restService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($rootScope, $scope, $stateParams, $rest, $msg, $localStorage) {
+    function($rootScope, $scope, $stateParams, $rest, $msg, $localStorage, restService) {
         $scope.userEdit = { updateOn: "" };
 
         $scope.init = function() {
@@ -318,7 +338,6 @@ angular.module('app.controllers', ['ngStorage'])
         }
 
         $scope.GetSelectedReligion = function(selectedreligion) {
-            alert("hi");
             $scope.userEdit.religion = selectedreligion.name;
         };
 
@@ -327,12 +346,7 @@ angular.module('app.controllers', ['ngStorage'])
         };
 
         $scope.updateUser = function() {
-            $scope.userEdit.updateOn = new Date();
-            var url = 'matrimony/user/' + $localStorage.user._id;
-            alert(JSON.stringify($scope.userEdit));
-            $rest.patch(url, $scope.userEdit).then(function(response) {
-                $msg.info("Success", "You need to verify registration by entering code sent to you on mobile & email");
-            });
+            restService.updateUser($scope.userEdit);
         }
 
     }
