@@ -117,7 +117,7 @@ angular.module('app.controllers', ['ngStorage'])
         }
 
         $scope.classForShortlisted = function(user) {
-        	var logedInUser = JSON.parse($localStorage.user);
+            var logedInUser = JSON.parse($localStorage.user);
             if ($scope.isAlreadyShortlisted(logedInUser.shortlisted, user._id))
                 return true;
             else
@@ -191,12 +191,27 @@ angular.module('app.controllers', ['ngStorage'])
     }
 ])
 
-.controller('shortlistedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('shortlistedCtrl', ['$scope', '$stateParams', '$resource', '$rest', '$msg', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $localStorage) {
+    function($scope, $stateParams, $resource, $rest, $msg, $localStorage) {
 
+        $scope.showShortListedProfiles = function() {
 
+            var condition = {
+                "condition": [{
+                    "isOr": false,
+                    "searchpath": "_id",
+                    "values": JSON.parse($localStorage.user).shortlisted
+                }],
+                "sortAscending": true,
+                "sortOn": "firstName"
+            };
+
+            $rest.post('matrimony/user/search', condition).then(function(response) {
+                $scope.shortlisted = response.data;
+            });
+        }
 
     }
 ])
@@ -280,13 +295,34 @@ angular.module('app.controllers', ['ngStorage'])
     }
 ])
 
-.controller('shortlistedMeCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('shortlistedMeCtrl', ['$scope', '$stateParams', '$resource', '$rest', '$msg', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $stateParams, $resource, $rest, $msg, $localStorage) {
 
+        $scope.showShortListedMe = function() {
+            alert(JSON.stringify($localStorage.user));
+            var condition = {
+                "condition": [{
+                    "isOr": false,
+                    "searchpath": "shortlisted",
+                    "values": [JSON.parse($localStorage.user)._id]
+                }],
+                "sortAscending": true,
+                "sortOn": "firstName"
+            };
+
+            $rest.post('matrimony/user/search', condition).then(function(response) {
+                $scope.shortlisted = response.data;
+            });
+        }
 
     }
+
+
+
+
+
 ])
 
 .controller('mailBoxCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -332,6 +368,7 @@ angular.module('app.controllers', ['ngStorage'])
 
         $scope.init = function() {
             var url = 'matrimony/user/' + $localStorage.user._id;
+
             $rest.get(url, function(response) {
                 $scope.userEdit = response;
             });
